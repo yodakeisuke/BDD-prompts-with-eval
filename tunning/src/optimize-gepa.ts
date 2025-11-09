@@ -42,10 +42,13 @@ async function main(): Promise<void> {
   }
 
   // Initialize LLM
-  console.log('📡 Initializing LLM...');
+  console.log('📡 Initializing LLM (Haiku 4.5)...');
   const llm = ai({
     name: 'anthropic',
     apiKey: process.env.ANTHROPIC_API_KEY,
+    config: {
+      model: 'claude-haiku-4-5-20251001' as any, // Type assertion: Haiku 4.5 not yet in type definitions
+    },
   });
 
   // Create LLM-as-judge metric function
@@ -57,14 +60,14 @@ async function main(): Promise<void> {
   const dataset = getTrainingDataset();
   console.log(`   Train: ${dataset.train.length} examples\n`);
 
-  // Load SKILL.md (for reference, but GEPA will optimize from scratch)
+  // Load SKILL.md as initial prompt for GEPA optimization
   const initialPrompt = loadSkillPrompt();
-  console.log(`📝 Initial prompt length: ${initialPrompt.length} chars (reference only)\n`);
+  console.log(`📝 Initial prompt length: ${initialPrompt.length} chars\n`);
 
-  // Define signature (GEPA will optimize the instruction)
-  console.log('🔧 Defining signature...');
+  // Define signature with initial instruction from SKILL.md
+  console.log('🔧 Defining signature with initial prompt...');
   const bddSignature = ax(
-    'story_input:string -> bdd_mapping:json "BDD Example Mapping"'
+    `"${initialPrompt.replace(/"/g, '\\"')}" story_input:string -> bdd_mapping:json "BDD Example Mapping"`
   );
 
   // Create optimizer

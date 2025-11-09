@@ -7,6 +7,8 @@
   "scripts": {
     "optimize": "tsx src/optimize-gepa.ts",
     "optimize:watch": "tsx --watch src/optimize-gepa.ts",
+    "optimize:ace": "tsx src/optimize-ace.ts",
+    "optimize:ace:watch": "tsx --watch src/optimize-ace.ts",
     "build": "tsc",
     "typecheck": "tsc --noEmit"
   },

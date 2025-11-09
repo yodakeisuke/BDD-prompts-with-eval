@@ -265,7 +265,7 @@ async function evaluateExampleTestability(
   for (const rule of parsed.rules) {
     for (const example of rule.examples) {
       allExamples.push(
-        `Rule: ${rule.name}\nExample: ${example.description}\nDetails: ${example.details}`
+        `Rule: ${rule.name}\nGiven: ${example.given}\nWhen: ${example.when}\nThen: ${example.then}`
       );
     }
   }
@@ -366,6 +366,12 @@ export function createBddMultiObjectiveMetric(ai: AxAI) {
   }): Promise<GEPAMetricResult> {
     const parsed = parseJSONOutput(prediction.output);
 
+    // Debug: Log parsing result
+    if (!parsed) {
+      console.warn('⚠️  Failed to parse JSON output');
+      console.warn('   Output preview:', prediction.output?.substring(0, 200));
+    }
+
     // Evaluate all three metrics in parallel for efficiency
     const [three_amigos_coverage, question_pattern_diversity, example_testability] =
       await Promise.all([
@@ -373,6 +379,9 @@ export function createBddMultiObjectiveMetric(ai: AxAI) {
         evaluateQuestionPatternDiversity(ai, parsed),
         evaluateExampleTestability(ai, parsed),
       ]);
+
+    // Debug: Log metric scores
+    console.log(`   Metrics: amigos=${three_amigos_coverage.toFixed(2)}, diversity=${question_pattern_diversity.toFixed(2)}, testability=${example_testability.toFixed(2)}`);
 
     return {
       three_amigos_coverage,

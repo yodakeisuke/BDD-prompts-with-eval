@@ -13,9 +13,9 @@ export interface BDDStory {
 }
 
 export interface BDDExample {
-  id: string;
-  description: string;
-  details: string;
+  given: string; // Precondition (Gherkin)
+  when: string; // Action (Gherkin)
+  then: string; // Expected outcome (Gherkin)
 }
 
 export interface BDDRule {
@@ -99,4 +99,59 @@ export interface GEPAOptimizationResult {
   bestScore: number;
   hypervolume: number | null;
   optimizedPrompt: OptimizedPrompt;
+}
+
+// ============================================================================
+// ACE Training/Validation Data Types
+// ============================================================================
+
+/**
+ * ACE training example with complete input/output pairs
+ *
+ * Unlike GEPA (which uses validation_criteria), ACE requires
+ * complete expected outputs (ground truth) for each input.
+ */
+export interface ACEExample {
+  input: {
+    story_input: string;
+  };
+  output: BDDExampleMapping; // Complete ground truth BDD mapping
+}
+
+export interface ACEDataset {
+  train: ACEExample[];
+  validation: ACEExample[];
+}
+
+// ============================================================================
+// ACE Metric Types
+// ============================================================================
+
+/**
+ * ACE metric result (single combined score)
+ *
+ * Unlike GEPA's multi-objective metrics, ACE uses a single
+ * weighted score combining all three BDD quality dimensions.
+ */
+export interface ACEMetricResult {
+  score: number; // 0-1 combined score
+  breakdown?: {
+    three_amigos_coverage: number;
+    question_pattern_diversity: number;
+    example_testability: number;
+  };
+}
+
+// ============================================================================
+// ACE Optimization Result Types
+// ============================================================================
+
+/**
+ * ACE optimization result (playbook with optimized examples)
+ */
+export interface ACEOptimizationResult {
+  optimizedProgram: any; // AxProgram with optimized demos
+  bestScore: number;
+  totalEpochs: number;
+  timestamp: string;
 }

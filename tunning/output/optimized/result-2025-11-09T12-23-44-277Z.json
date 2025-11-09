@@ -1,0 +1,67 @@
+{
+  "bestScore": 0,
+  "stats": {
+    "totalCalls": 164,
+    "successfulDemos": 0,
+    "estimatedTokenUsage": 0,
+    "earlyStopped": false,
+    "resourceUsage": {
+      "totalTokens": 0,
+      "totalTime": 0,
+      "avgLatencyPerEval": 0,
+      "costByModel": {}
+    },
+    "convergenceInfo": {
+      "converged": true,
+      "finalImprovement": 0,
+      "stagnationRounds": 0,
+      "convergenceThreshold": 0
+    },
+    "bestScore": 0,
+    "bestConfiguration": {}
+  },
+  "instruction": "Follow the task precisely. Be concise, correct, and consistent.",
+  "demos": [],
+  "examples": [
+    {
+      "story_input": "月次締め処理を自動化したい。",
+      "validation_criteria": {
+        "min_questions": 5,
+        "min_rules": 2,
+        "expected_keywords": [
+          "締め",
+          "自動",
+          "処理"
+        ]
+      }
+    },
+    {
+      "story_input": "経理承認が完了した予算は、部門長も編集できないようにしたい。ただし、CFOと経理部長は編集可能のまま。あと、コメント追加は誰でもできるようにしたい。",
+      "validation_criteria": {
+        "min_questions": 3,
+        "min_rules": 3,
+        "expected_keywords": [
+          "承認",
+          "権限",
+          "編集"
+        ]
+      }
+    },
+    {
+      "story_input": "予実差異レポートで、マイナス値を赤字で表示したい。",
+      "validation_criteria": {
+        "min_questions": 5,
+        "min_rules": 1,
+        "expected_keywords": [
+          "マイナス",
+          "赤",
+          "表示"
+        ]
+      }
+    }
+  ],
+  "optimizerType": "GEPA",
+  "optimizationTime": 494709,
+  "totalRounds": 4,
+  "converged": true
+}
