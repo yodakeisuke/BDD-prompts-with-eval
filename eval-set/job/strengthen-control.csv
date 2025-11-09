@@ -1,0 +1,6 @@
+job_to_be_done,category,complexity,story_input,job_context,expected_rules_min,expected_questions_min,domain_tags
+統制強化,権限承認,complex,承認済み予算は部門長も編集不可にしたい。CFOのみ編集可能。,ユーザーは承認後の不正変更を防止し、統制を強化したい,4,6,"access-control,state-based-permission,governance,fraud-prevention"
+統制強化,承認フロー,medium,特定金額以上の予算はCFO承認必須にしたい。1000万円以上とか。,ユーザーは重要案件の承認プロセスを厳格化したい,3,4,"amount-threshold,escalation,approval-hierarchy,control"
+統制強化,監査証跡,simple,全てのデータアクセスログを記録したい。不正アクセス検知のため。,ユーザーはセキュリティ監査とコンプライアンスを強化したい,3,4,"access-log,security,audit-trail,compliance"
+統制強化,権限承認,medium,他部門の予算は閲覧不可にしたい。部門間の情報分離。,ユーザーはデータの機密性を保ち、情報漏洩を防止したい,3,5,"data-isolation,access-control,privacy,multi-tenancy"
+統制強化,承認フロー,complex,月次締め後の予算修正は、理由コメント必須＋CFO承認にしたい。,ユーザーは月次クローズの整合性を維持し、例外対応を厳格化したい,4,6,"month-end-close,mandatory-comment,escalation,control"

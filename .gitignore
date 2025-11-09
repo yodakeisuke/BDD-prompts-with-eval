@@ -1,0 +1,50 @@
+# Environment files with secrets
+.env
+.env.local
+.env.*.local
+
+# API keys and credentials
+*.key
+*.pem
+credentials*
+secrets*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+tmp/
+temp/
+
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+build/
+out/
+
+# promptfoo cache and outputs
+.promptfoo/
+
+# Test outputs
+coverage/
+.nyc_output/
+
+# Lock files (optional - uncomment if you want to ignore)
+# pnpm-lock.yaml
+# package-lock.json
+# yarn.lock

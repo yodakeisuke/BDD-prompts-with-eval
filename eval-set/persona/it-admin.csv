@@ -1,0 +1,7 @@
+category,complexity,story_input,persona_context,expected_rules_min,expected_questions_min,domain_tags
+データ統合,complex,会計システム（SAP）とリアルタイム連携したい。API経由で。実績データの自動取り込み。,IT管理者はシステム統合とデータ連携基盤の構築が役割。,5,7,"api-integration,sap,real-time,enterprise-architecture"
+権限承認,medium,ADグループと連携して、ユーザー権限を自動同期したい。人事異動時の手作業を減らす。,IT管理者はユーザー管理の自動化と効率化を推進。,4,5,"active-directory,sso,user-provisioning,automation"
+監査証跡,simple,システムアクセスログを全て記録したい。セキュリティ監査対応で。保存期間7年。,IT管理者はセキュリティとコンプライアンス維持が責務。,3,4,"access-log,security,compliance,retention-policy"
+データ統合,medium,マスタデータ（部門・勘定科目）を別システムから同期したい。夜間バッチで。差分更新方式。,IT管理者はマスタデータの一元管理と整合性維持が重要。,4,5,"master-data,batch-sync,incremental-update,data-governance"
+パフォーマンス,ambiguous,月末の大量データ処理が遅い。予算集計に1時間かかる。10分以内にしたい。,IT管理者はシステムパフォーマンスとユーザー体験の最適化を担う。,3,6,"performance,optimization,batch-processing,scalability"
+バックアップ,simple,予算データの日次バックアップを自動化したい。世代管理で30日分保持。,IT管理者はデータ保護とディザスタリカバリが責務。,3,4,"backup,disaster-recovery,retention,automation"

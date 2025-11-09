@@ -1,0 +1,6 @@
+job_to_be_done,category,complexity,story_input,job_context,expected_rules_min,expected_questions_min,domain_tags
+手作業削減,データ統合,medium,予算データをExcelから手入力しているが、CSVインポートで自動化したい。,ユーザーは反復的な手入力作業を削減したい（Jobs: 時間節約・エラー削減）,3,5,"automation,csv-import,manual-work-reduction,efficiency"
+手作業削減,レポート,medium,毎月同じフォーマットのレポートを手作業で作成している。自動生成できないか。,ユーザーは定型業務を自動化して本質的業務に集中したい,3,5,"report-automation,scheduled,template,productivity"
+手作業削減,UI/UX,simple,前年度予算をコピーして新年度予算を作成したい。一括コピー機能が欲しい。,ユーザーは既存データの再利用で初期入力負荷を削減したい,2,4,"copy,template,bulk-operation,reusability"
+手作業削減,データ統合,complex,複数システムのデータを手動で突合している。自動連携で一元化したい。,ユーザーは複数ソースの手動統合作業を削減し、リアルタイム性を向上したい,4,6,"integration,automation,data-consolidation,real-time"
+手作業削減,承認フロー,medium,承認依頼メールを毎回手動で送っている。システムから自動通知できないか。,ユーザーは通知・催促の手間を削減し、承認の迅速化を図りたい,3,5,"notification,automation,workflow,communication"

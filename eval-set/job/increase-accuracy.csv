@@ -1,0 +1,6 @@
+job_to_be_done,category,complexity,story_input,job_context,expected_rules_min,expected_questions_min,domain_tags
+精度向上,データ統合,medium,実績データのインポート時、勘定科目の入力ミスが多い。マッピングルールで自動変換したい。,ユーザーは手入力エラーを削減し、データ品質を向上したい,4,5,"data-quality,validation,mapping,error-reduction"
+精度向上,監査証跡,medium,予算変更の理由が記録されていない。コメント必須入力にしたい。,ユーザーは変更の説明責任を果たし、監査対応を強化したい,3,5,"mandatory-field,audit-trail,accountability,compliance"
+精度向上,UI/UX,simple,金額入力時、桁区切りカンマを自動表示したい。入力ミス防止のため。,ユーザーは視認性向上で入力精度を高めたい,2,3,"input-validation,formatting,usability,error-prevention"
+精度向上,承認フロー,complex,承認期限を過ぎた予算は自動で差し戻したい。期限切れ承認を防ぐ。,ユーザーは統制強化とプロセス遵守を徹底したい,4,6,"deadline,automation,control,governance"
+精度向上,レポート,medium,予実差異が一定%超えた場合、アラート通知したい。異常値の早期検知。,ユーザーは異常検知を自動化し、迅速な対応を可能にしたい,3,5,"alert,threshold,monitoring,early-warning"

@@ -1,0 +1,6 @@
+job_to_be_done,category,complexity,story_input,job_context,expected_rules_min,expected_questions_min,domain_tags
+可視性向上,レポート,medium,部門別の予算消化率をダッシュボードで可視化したい。リアルタイムで。,ユーザーは進捗状況を常時把握し、早期の意思決定を行いたい,3,5,"dashboard,real-time,monitoring,visualization"
+可視性向上,承認フロー,simple,承認待ちの予算一覧を確認したい。ステータス別に表示。,ユーザーは業務の滞留状況を把握し、ボトルネック解消したい,2,4,"status-view,filtering,workflow-visibility,task-management"
+可視性向上,監査証跡,medium,予算変更履歴を時系列で確認したい。変更前後の差分も見たい。,ユーザーは変更の経緯を追跡し、説明責任を果たしたい,3,5,"change-history,diff-view,audit-trail,transparency"
+可視性向上,レポート,complex,複数シナリオの予算を並べて比較したい。グラフと表で。意思決定の材料に。,ユーザーは戦略的意思決定のため複数案を比較評価したい,4,6,"scenario-comparison,what-if-analysis,visualization,decision-support"
+可視性向上,UI/UX,ambiguous,予算修正時、変更箇所だけハイライトして欲しい。レビュー効率を上げたい。,ユーザーは変更差分の把握を容易にし、レビュー時間を削減したい,3,5,"change-tracking,highlighting,review-support,efficiency"

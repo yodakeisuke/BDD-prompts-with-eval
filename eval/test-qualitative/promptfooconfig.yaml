@@ -1,0 +1,84 @@
+description: |
+  Qualitative evaluation for Example Mapping SKILL.md using LLM-as-judge.
+  Assesses subjective quality: depth of questions, appropriateness of rules, domain expertise.
+
+providers:
+  - id: anthropic:claude-agent-sdk
+    config:
+      model: sonnet
+      working_dir: ./test-qualitative/sandbox
+      # No permission_mode - let SKILL.md output JSON directly
+      setting_sources:
+        - project
+
+prompts:
+  - file://../../.claude/skills/bdd/example-mapping/SKILL.md
+
+tests:
+  - description: "[UI/UX] 曖昧な要求からの質問生成能力"
+    vars:
+      story_input: "予算入力画面をもっと使いやすくしたい"
+    assert:
+      - type: llm-rubric
+        value: |
+          以下の観点で評価してください（5段階: 1=不十分、5=優れている）:
+
+          1. 質問の深さと洞察力（3 Amigos視点）
+             - Developer: 技術実装の複雑性、既存機能への影響を問う質問があるか
+             - Tester: エッジケース、ユーザビリティテストの観点があるか
+             - PO: ビジネス価値、優先順位、MVPスコープを問う質問があるか
+             評価基準: 3つの視点全てから質問があり、表面的でなく本質的 = 5
+
+          2. FP&A SaaS特化性
+             - Excel操作との親和性への言及があるか
+             - 予算編成プロセスへの理解が見られるか
+             - 月次・年次サイクルや既存ワークフローへの配慮があるか
+             評価基準: FP&A特有の観点が3つ以上含まれる = 5
+
+          3. 質問の重複・冗長性の回避
+             - 同じ観点の質問が複数ないか
+             - 各質問が独立した価値を持つか
+             評価基準: 全ての質問が異なる観点で重複なし = 5
+
+          4. 実用性・実装可能性
+             - 開発チームが判断・実装できる粒度になっているか
+             - next_actionsが具体的で実行可能か
+             評価基準: 質問に答えれば実装可能、next_actionsが明確 = 5
+
+          総合評価: 各観点の平均が4.0以上の場合のみpass。
+          各観点のスコアと理由を明記してください。
+
+  - description: "[権限承認] 複雑な業務ロジックの整理能力"
+    vars:
+      story_input: "部門予算の承認フローを2段階にしたい。部門長承認後、経理承認を追加。"
+    assert:
+      - type: llm-rubric
+        value: |
+          以下の観点で評価してください（5段階: 1=不十分、5=優れている）:
+
+          1. ルール分解の適切性
+             - 権限マトリクス（ロール×操作）を整理できているか
+             - 状態遷移（未承認→部門長承認→経理承認）を考慮しているか
+             - ルール数が適切（3-7個程度、過度に細分化していない）
+             評価基準: 権限と状態を明確に分離、ルール数3-5個 = 5
+
+          2. 例の具体性・検証可能性
+             - Given/When/Then形式で明確に記述されているか
+             - テストケースとして実装可能な粒度か
+             - 正常系と異常系（権限エラー等）を含むか
+             評価基準: 全ての例がGiven/When/Then形式、正常系+異常系 = 5
+
+          3. 技術的正確性
+             - 承認フロー、権限モデルの概念を正しく使用しているか
+             - FP&A SaaSのドメイン知識を反映（予算ロック、監査証跡、再承認等）
+             - 既存承認フローへの影響を考慮しているか
+             評価基準: 用語正確、ドメイン知識3つ以上、既存影響考慮 = 5
+
+          4. バランス
+             - blocker/clarification/futureの配分が妥当（blocker偏重でない）
+             - 質問が10個超の場合、複雑性を指摘し分割を提案しているか
+             - ルールと例の比率が適切（1ルールあたり1-3例）
+             評価基準: 各カテゴリにバランス良く配分、適切な粒度 = 5
+
+          総合評価: 各観点の平均が4.0以上の場合のみpass。
+          各観点のスコアと理由を明記してください。

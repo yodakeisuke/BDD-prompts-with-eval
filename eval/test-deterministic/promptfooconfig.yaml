@@ -1,0 +1,158 @@
+description: |
+  Minimal promptfoo harness that locks the generator to Claude Agent SDK.
+  Every prompt asks Claude to return structured JSON so assertions stay deterministic.
+
+providers:
+  - id: anthropic:claude-agent-sdk
+    config:
+      model: sonnet
+      working_dir: ./test-deterministic/sandbox
+      # permission_mode: plan  # Removed - plan mode causes conversational output instead of pure JSON
+      setting_sources:
+        - project
+
+prompts:
+  - file://../../.claude/skills/bdd/example-mapping/SKILL.md
+
+defaultTest:
+  # All test cases use 'story_input' variable directly
+  assert:
+    - type: javascript
+      value: |
+        // Extract JSON from markdown code blocks if present
+        function extractJSON(text) {
+          const match = text.match(/```(?:json)?\s*\n?([\s\S]*?)\n?```/);
+          return match ? match[1].trim() : text.trim();
+        }
+        const jsonText = extractJSON(output);
+        const out = JSON.parse(jsonText);
+        // story構造検証
+        const hasStory = out.story &&
+          out.story.as_a && out.story.as_a.length > 0 &&
+          out.story.i_want_to && out.story.i_want_to.length > 0 &&
+          out.story.so_that && out.story.so_that.length > 0;
+        // rules構造検証
+        const hasRules = Array.isArray(out.rules) && out.rules.length >= 1;
+        // questions構造検証
+        const hasQuestions = out.questions &&
+          Array.isArray(out.questions.blocker) &&
+          Array.isArray(out.questions.clarification) &&
+          Array.isArray(out.questions.future);
+        // metadata存在検証
+        const hasMetadata = out.metadata &&
+          typeof out.metadata.rule_count === 'number' &&
+          typeof out.metadata.example_count === 'number' &&
+          typeof out.metadata.question_count === 'number';
+
+        return hasStory && hasRules && hasQuestions && hasMetadata;
+
+tests:
+  # FP&A SaaS エンハンス開発特化テストケース（小粒〜中粒の既存機能改修）
+
+  - description: "[曖昧×既存機能調整] 予実差異レポートの表示改善"
+    vars:
+      story_input: "予実差異レポートで、マイナス値を赤字で表示したい。"
+    assert:
+      - type: javascript
+        value: |
+          function extractJSON(text) {
+            const match = text.match(/```(?:json)?\s*\n?([\s\S]*?)\n?```/);
+            return match ? match[1].trim() : text.trim();
+          }
+          const out = JSON.parse(extractJSON(output));
+          // 曖昧な指示: blockerまたはclarificationに質問が3つ以上
+          const criticalQuestions =
+            out.questions.blocker.length +
+            out.questions.clarification.length;
+          return criticalQuestions >= 3;
+      - type: javascript
+        value: |
+          function extractJSON(text) {
+            const match = text.match(/```(?:json)?\s*\n?([\s\S]*?)\n?```/);
+            return match ? match[1].trim() : text.trim();
+          }
+          const out = JSON.parse(extractJSON(output));
+          // 既存機能改修特有の曖昧性を質問化できているか
+          const allQuestions = [
+            ...out.questions.blocker,
+            ...out.questions.clarification
+          ].join(' ');
+          // 「マイナス」「ゼロ」「赤字」「色」「Excel」「エクスポート」「既存」「影響」等
+          const hasRelevantQuestions =
+            (allQuestions.includes('マイナス') || allQuestions.includes('負')) &&
+            (allQuestions.includes('赤') || allQuestions.includes('色') || allQuestions.includes('表示')) &&
+            (allQuestions.includes('Excel') || allQuestions.includes('エクスポート') || allQuestions.includes('既存') || allQuestions.includes('影響'));
+          return hasRelevantQuestions;
+
+  - description: "[複雑×権限承認系] 承認後の編集権限制御"
+    vars:
+      story_input: "経理承認が完了した予算は、部門長も編集できないようにしたい。ただし、CFOと経理部長は編集可能のまま。あと、コメント追加は誰でもできるようにしたい。"
+    assert:
+      - type: javascript
+        value: |
+          function extractJSON(text) {
+            const match = text.match(/```(?:json)?\s*\n?([\s\S]*?)\n?```/);
+            return match ? match[1].trim() : text.trim();
+          }
+          const out = JSON.parse(extractJSON(output));
+          // 権限マトリクスの複雑性: 5個超のルール（ロール×操作の組み合わせ）
+          // OR 複雑性を示唆する質問
+          const manyRules = out.rules.length > 5;
+          const suggestsSplit = out.questions.blocker.some(q =>
+            q.includes('複雑') ||
+            q.includes('マトリクス') ||
+            q.includes('整理')
+          ) || out.questions.clarification.some(q =>
+            q.includes('ロール') ||
+            q.includes('権限') ||
+            q.includes('承認')
+          );
+          return manyRules || suggestsSplit;
+      - type: javascript
+        value: |
+          function extractJSON(text) {
+            const match = text.match(/```(?:json)?\s*\n?([\s\S]*?)\n?```/);
+            return match ? match[1].trim() : text.trim();
+          }
+          const out = JSON.parse(extractJSON(output));
+          // 権限系は既存機能への影響範囲確認が重要
+          const allQuestions = [
+            ...out.questions.blocker,
+            ...out.questions.clarification
+          ].join(' ');
+          // 「既存」「承認フロー」「編集」「コメント」「データ整合性」等
+          const hasImpactQuestions =
+            (allQuestions.includes('既存') || allQuestions.includes('現在') || allQuestions.includes('影響')) ||
+            (allQuestions.includes('承認') && allQuestions.includes('フロー')) ||
+            allQuestions.includes('整合性') ||
+            allQuestions.includes('再承認');
+          return hasImpactQuestions;
+
+  - description: "[意地悪×UX改善] 予算入力の操作性改善"
+    vars:
+      story_input: "予算入力がやりにくい。もっと早くしたい。Excelみたいに。"
+    assert:
+      - type: javascript
+        value: |
+          function extractJSON(text) {
+            const match = text.match(/```(?:json)?\s*\n?([\s\S]*?)\n?```/);
+            return match ? match[1].trim() : text.trim();
+          }
+          const out = JSON.parse(extractJSON(output));
+
+          // 1. 質問数の妥当性（抽象的な要求には最低7個の質問）
+          const totalQuestions =
+            out.questions.blocker.length +
+            out.questions.clarification.length;
+          const hasAdequateQuestions = totalQuestions >= 7;
+
+          // 2. ルール数の妥当性（UX改善で3-7個程度）
+          const hasReasonableRules =
+            out.rules.length >= 3 && out.rules.length <= 7;
+
+          // 3. 各ルールに例が存在
+          const allRulesHaveExamples = out.rules.every(r =>
+            r.examples && r.examples.length >= 1
+          );
+
+          return hasAdequateQuestions && hasReasonableRules && allRulesHaveExamples;

@@ -1,0 +1,11 @@
+category,complexity,story_input,expected_rules_min,expected_questions_min,domain_tags
+UI/UX,ambiguous,予算入力がやりにくい。もっと早くしたい。Excelみたいに。,3,7,"input,excel-like,brownfield,usability"
+レポート,simple,予実差異レポートで、マイナス値を赤字で表示したい。,2,3,"reporting,display,existing-feature,visualization"
+権限承認,complex,経理承認が完了した予算は、部門長も編集できないようにしたい。ただし、CFOと経理部長は編集可能のまま。あと、コメント追加は誰でもできるようにしたい。,5,5,"permissions,approval-flow,role-based,state-management"
+承認フロー,medium,部門予算の承認フローを2段階にしたい。部門長承認後、経理承認を追加。,4,4,"workflow,approval-flow,state-transition,existing-enhancement"
+データ統合,medium,既存の販管費データをインポートしたい。CSV形式で。過去3年分。,3,5,"import,csv,data-migration,historical-data"
+承認フロー,complex,承認期限を過ぎた予算は自動で差し戻したい。差し戻し時は部門長にメール通知。,4,6,"workflow,automation,deadline,notification,integration"
+レポート,medium,月次で予算達成率を部門別に集計したレポートが欲しい。Excelエクスポート可能で。,3,4,"reporting,aggregation,excel-export,scheduled"
+UI/UX,simple,予算コピー機能で、前年度予算をベースに新年度予算を作成したい。,2,4,"copy,template,year-over-year,productivity"
+権限承認,medium,予算の閲覧権限を部門ごとに制御したい。他部門の予算は見えないように。,3,5,"permissions,data-isolation,multi-tenancy,privacy"
+データ統合,simple,実績データを会計システムから自動連携したい。毎日夜間バッチで。,3,5,"integration,batch,accounting-system,automation"

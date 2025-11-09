@@ -1,0 +1,7 @@
+category,complexity,story_input,persona_context,expected_rules_min,expected_questions_min,domain_tags
+予算編成,medium,来期の人件費予算を今期比5%削減で入力したい。一括で設定できないか。,部門長は予算全体の調整が主業務。細かい手入力は避けたい。,3,5,"budget-planning,bulk-operation,personnel-cost,efficiency"
+承認フロー,simple,自分が承認した予算の一覧を確認したい。承認日付順で。,部門長は多数の予算を承認するため履歴管理が重要。,2,3,"approval-history,filtering,sorting,audit-trail"
+レポート,medium,部門別の予算消化率を月次でモニタリングしたい。前年同月比も見たい。,部門長は予算進捗を常時把握し、早期アラートが必要。,3,4,"monitoring,burn-rate,year-over-year,dashboard"
+権限承認,ambiguous,部下に予算入力を代行させたい。でも最終確認は自分でしたい。,部門長は業務委譲しつつも統制を維持したい。,4,6,"delegation,proxy-input,approval-workflow,responsibility"
+データ統合,simple,Excelで作った予算案をそのままインポートしたい。テンプレ通りのフォーマット。,部門長はExcel慣れしており、既存ワークフローを維持したい。,2,4,"excel-import,template,existing-workflow,compatibility"
+UI/UX,ambiguous,予算修正時、変更箇所だけハイライトして欲しい。承認者が分かりやすいように。,部門長は変更差分の説明責任がある。,3,5,"change-tracking,diff-view,approval-support,transparency"

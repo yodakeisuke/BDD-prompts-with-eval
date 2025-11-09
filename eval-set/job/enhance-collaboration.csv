@@ -1,0 +1,6 @@
+job_to_be_done,category,complexity,story_input,job_context,expected_rules_min,expected_questions_min,domain_tags
+協働促進,承認フロー,ambiguous,部下に予算入力を代行させたい。でも最終確認は自分でしたい。,ユーザーは業務を委譲しつつも品質統制を維持したい,4,6,"delegation,proxy-input,approval-workflow,collaboration"
+協働促進,UI/UX,medium,予算にコメント機能を追加したい。承認者と入力者でやり取りできるように。,ユーザーは非同期コミュニケーションで承認プロセスを円滑化したい,3,5,"commenting,communication,collaboration,workflow"
+協働促進,承認フロー,simple,承認者にリマインダー通知を送りたい。期限3日前とか。,ユーザーは承認遅延を防止し、業務の円滑な進行を図りたい,2,4,"reminder,notification,workflow,deadline-management"
+協働促進,レポート,medium,部門横断の予算サマリを自動共有したい。週次でメール配信。,ユーザーは情報共有を自動化し、部門間連携を強化したい,3,5,"report-sharing,email,automation,cross-functional"
+協働促進,権限承認,medium,外部監査法人に一時的なアクセス権を付与したい。期間限定・読み取り専用で。,ユーザーは外部協力者との安全な情報共有を実現したい,3,5,"external-access,time-limited,read-only,collaboration"

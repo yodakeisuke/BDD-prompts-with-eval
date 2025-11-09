@@ -1,0 +1,7 @@
+category,complexity,story_input,persona_context,expected_rules_min,expected_questions_min,domain_tags
+データ統合,complex,全部門の予算を統合して、勘定科目別サマリを自動生成したい。月次・四半期・年次の3パターン。,経理担当は連結・集計が主業務。手作業集計は非効率。,4,6,"consolidation,aggregation,account-category,multi-period"
+監査証跡,medium,予算変更履歴を全て記録したい。誰が・いつ・何を変更したか。監査対応で必要。,経理は監査対応とコンプライアンス遵守が責務。,3,5,"audit-trail,change-history,compliance,accountability"
+承認フロー,complex,月次締め後の予算修正は、CFO承認必須にしたい。理由コメント必須で。,経理は月次クローズの整合性維持が重要。,4,6,"month-end-close,approval-escalation,comment-mandatory,control"
+レポート,medium,予算と実績の差異分析レポートを自動生成したい。差異理由も入力欄として用意。,経理は差異分析と説明が定例業務。,3,5,"variance-analysis,commentary,reporting,automation"
+データ統合,medium,実績データのインポート時、勘定科目マッピングを自動適用したい。会計システムとコード体系が違うから。,経理はシステム間の勘定科目差異に日々対処。,4,5,"account-mapping,data-transformation,integration,master-data"
+権限承認,simple,監査法人向けに、予算・実績データを読み取り専用で公開したい。期間限定で。,経理は外部監査対応で一時的なアクセス許可が必要。,3,4,"external-access,read-only,time-limited,audit-support"

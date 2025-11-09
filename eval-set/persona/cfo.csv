@@ -1,0 +1,7 @@
+category,complexity,story_input,persona_context,expected_rules_min,expected_questions_min,domain_tags
+レポート,medium,全社予算サマリをダッシュボードで可視化したい。リアルタイム更新で。取締役会で使う。,CFOは経営判断のための高レベル集計が必要。,3,5,"dashboard,executive-summary,real-time,board-meeting"
+承認フロー,simple,特定金額以上の予算は自分の承認を必須にしたい。1000万円以上とか。,CFOは重要予算の最終承認権限を持つ。,3,4,"amount-threshold,escalation,final-approval,control"
+シミュレーション,complex,複数の予算シナリオを比較したい。楽観・標準・悲観の3パターン。各シナリオで売上予測が違う。,CFOは戦略的意思決定のためシナリオ分析を実施。,5,7,"scenario-planning,what-if-analysis,sensitivity,strategy"
+レポート,medium,キャッシュフロー予測を予算ベースで自動計算したい。月次で更新。,CFOは資金繰り管理が重要業務。,4,6,"cash-flow,forecast,liquidity,treasury"
+権限承認,ambiguous,全部門の予算を常時閲覧したい。でも編集は承認フロー経由のみ。緊急時は直接編集も可能に。,CFOは全社予算の統括責任者だが、通常は承認プロセスを尊重。,4,6,"global-access,emergency-override,governance,flexibility"
+データ統合,complex,予算データを経営会議資料に自動反映したい。PowerPoint形式で。グラフと表を自動生成。,CFOは経営報告の効率化を求める。,4,7,"reporting-automation,ppt-export,visualization,executive-reporting"
