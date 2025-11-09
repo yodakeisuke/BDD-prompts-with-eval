@@ -41,8 +41,8 @@ eval/
 2. ネイティブビルドの許可: `pnpm approve-builds` を実行し、少なくとも `better-sqlite3` を選択（必要に応じて他のパッケージも許可）。
 3. 環境変数テンプレートをコピーし、Anthropic のキーを設定:
    ```bash
-   cp .env.example .env.local
-   export $(grep -v '^#' .env.local | xargs) # もしくは direnv 等を利用
+   cp .env.example .env
+   export $(grep -v '^#' .env | xargs) # もしくは direnv 等を利用
    ```
    eval 実行前に `ANTHROPIC_API_KEY` がシェル上で参照できることを確認してください。
 

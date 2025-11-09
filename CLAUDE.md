@@ -83,7 +83,7 @@ pnpm eval:ui                         # View results in browser (no new LLM calls
 1. Copy environment template:
    ```bash
    cd eval
-   cp .env.example .env.local
+   cp .env.example .env
    ```
 
 2. Add your Anthropic API key to `.env.local`:
@@ -93,7 +93,7 @@ pnpm eval:ui                         # View results in browser (no new LLM calls
 
 3. Load environment (choose one):
    ```bash
-   export $(grep -v '^#' .env.local | xargs)  # Manual
+   export $(grep -v '^#' .env | xargs)  # Manual
    # OR use direnv/similar tool
    ```
 

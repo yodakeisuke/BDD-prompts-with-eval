@@ -1,0 +1,158 @@
+# Integration Test Configuration for BDD Example Mapping Skill
+# This validates the complete BDD workflow using golden dataset
+
+description: 'BDD Example Mapping Skill - Integration Test with Golden Dataset'
+
+providers:
+  - id: anthropic:claude-agent-sdk
+    config:
+      model: sonnet # Claude Sonnet 4.5
+      working_dir: test-integration/sandbox
+      setting_sources:
+        - project
+
+prompts:
+  - file://../../.claude/skills/bdd/example-mapping/SKILL.md
+
+# Import 9 curated test cases from golden dataset
+tests: file://../../eval-set/samples/integration-test.csv
+
+defaultTest:
+  assert:
+    # Assertion 1: Valid JSON structure
+    - type: is-json
+
+    # Assertion 2: Required top-level structure
+    - type: javascript
+      value: |
+        const parsed = JSON.parse(output);
+        const requiredKeys = ['story', 'rules', 'questions', 'next_actions', 'metadata'];
+        const hasAllKeys = requiredKeys.every(key => key in parsed);
+        if (!hasAllKeys) {
+          throw new Error(`Missing required keys. Expected: ${requiredKeys.join(', ')}`);
+        }
+        return true;
+
+    # Assertion 3: Story structure with persona decomposition
+    - type: javascript
+      value: |
+        const parsed = JSON.parse(output);
+        const story = parsed.story;
+        const requiredStoryKeys = ['as_a', 'i_want_to', 'so_that'];
+        const hasAllStoryKeys = requiredStoryKeys.every(key => key in story);
+        const allNonEmpty = requiredStoryKeys.every(key => story[key] && story[key].trim().length > 0);
+        if (!hasAllStoryKeys || !allNonEmpty) {
+          throw new Error('Story must have non-empty as_a, i_want_to, so_that fields');
+        }
+        return true;
+
+    # Assertion 4: Rules meet minimum threshold
+    - type: javascript
+      value: |
+        const parsed = JSON.parse(output);
+        const ruleCount = parsed.rules.length;
+        const expectedMin = context.vars.expected_rules_min;
+        if (ruleCount < expectedMin) {
+          throw new Error(`Expected at least ${expectedMin} rules, got ${ruleCount} (complexity: ${context.vars.complexity})`);
+        }
+        return true;
+
+    # Assertion 5: Rules have proper structure with examples
+    - type: javascript
+      value: |
+        const parsed = JSON.parse(output);
+        for (const rule of parsed.rules) {
+          if (!rule.id || !rule.name || !Array.isArray(rule.examples)) {
+            throw new Error('Each rule must have id, name, and examples array');
+          }
+          if (rule.examples.length === 0) {
+            throw new Error(`Rule ${rule.id} must have at least one example`);
+          }
+          for (const example of rule.examples) {
+            if (!example.id || !example.description || !example.details) {
+              throw new Error(`Example in rule ${rule.id} missing required fields`);
+            }
+          }
+        }
+        return true;
+
+    # Assertion 6: Questions meet minimum threshold and proper categorization
+    - type: javascript
+      value: |
+        const parsed = JSON.parse(output);
+        const questions = parsed.questions;
+        const totalQuestions = (questions.blocker?.length || 0) +
+                             (questions.clarification?.length || 0) +
+                             (questions.future?.length || 0);
+        const expectedMin = context.vars.expected_questions_min;
+        if (totalQuestions < expectedMin) {
+          throw new Error(`Expected at least ${expectedMin} questions, got ${totalQuestions} (complexity: ${context.vars.complexity})`);
+        }
+        // Verify categorization structure
+        if (!Array.isArray(questions.blocker) ||
+            !Array.isArray(questions.clarification) ||
+            !Array.isArray(questions.future)) {
+          throw new Error('Questions must have blocker, clarification, and future arrays');
+        }
+        return true;
+
+    # Assertion 7: Metadata accuracy
+    - type: javascript
+      value: |
+        const parsed = JSON.parse(output);
+        const metadata = parsed.metadata;
+        const actualRuleCount = parsed.rules.length;
+        const actualExampleCount = parsed.rules.reduce((sum, rule) => sum + rule.examples.length, 0);
+        const actualQuestionCount = (parsed.questions.blocker?.length || 0) +
+                                  (parsed.questions.clarification?.length || 0) +
+                                  (parsed.questions.future?.length || 0);
+
+        if (metadata.rule_count !== actualRuleCount) {
+          throw new Error(`Metadata rule_count (${metadata.rule_count}) doesn't match actual (${actualRuleCount})`);
+        }
+        if (metadata.example_count !== actualExampleCount) {
+          throw new Error(`Metadata example_count (${metadata.example_count}) doesn't match actual (${actualExampleCount})`);
+        }
+        if (metadata.question_count !== actualQuestionCount) {
+          throw new Error(`Metadata question_count (${metadata.question_count}) doesn't match actual (${actualQuestionCount})`);
+        }
+        return true;
+
+    # Assertion 8: Japanese language output
+    - type: javascript
+      value: |
+        const parsed = JSON.parse(output);
+        // Check story fields
+        const storyText = parsed.story.as_a + parsed.story.i_want_to + parsed.story.so_that;
+        // Check rule names
+        const ruleText = parsed.rules.map(r => r.name).join('');
+        // Check questions
+        const questionText = [
+          ...(parsed.questions.blocker || []),
+          ...(parsed.questions.clarification || []),
+          ...(parsed.questions.future || [])
+        ].join('');
+
+        // Simple heuristic: Check for Japanese characters (Hiragana, Katakana, Kanji)
+        const hasJapanese = /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF]/.test(storyText + ruleText + questionText);
+        if (!hasJapanese) {
+          throw new Error('Output should contain Japanese text');
+        }
+        return true;
+
+    # Assertion 9: FP&A SaaS domain considerations (qualitative)
+    - type: llm-rubric
+      value: |
+        Evaluate if the generated questions demonstrate appropriate consideration of FP&A SaaS brownfield development constraints:
+
+        Expected considerations:
+        - 既存機能との整合性 (consistency with existing features)
+        - 権限・承認フローへの影響 (impact on permissions and approval workflows)
+        - Excel出力への影響 (impact on Excel export)
+        - UI/UX制約 (UI/UX constraints)
+        - データ整合性 (data integrity)
+
+        The questions should show awareness of at least 2-3 of these domain-specific concerns.
+        Quality is more important than covering all categories.
+
+outputPath: ./test-integration-results.json

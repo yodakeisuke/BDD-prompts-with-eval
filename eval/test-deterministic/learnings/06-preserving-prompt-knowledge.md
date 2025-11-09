@@ -27,15 +27,16 @@ JSON出力を強制しようとして、重要なExample Mappingの知識を削�
 
 ## 解決策: 構造的分離
 
-### 最終的な構造
+### 最終的な構造 (2025-11-09更新)
 
 ```markdown
 # Example Mapping Skill
 
 User Story: {{story_input}}
 
-Analyze the above user story using BDD Example Mapping principles
-and output ONLY valid JSON (no markdown code fences, no commentary):
+Analyze the above user story using BDD Example Mapping principles.
+
+**OUTPUT FORMAT**: Return ONLY valid JSON (no markdown code fences, no commentary). All text values in Japanese.
 
 [JSON schema]
 
@@ -65,9 +66,11 @@ and output ONLY valid JSON (no markdown code fences, no commentary):
 **FP&A SaaS Brownfield Considerations:**
 - 既存機能との整合性
 - 権限・承認フローへの影響
-
-Return pure JSON only - all text values in Japanese.
 ```
+
+**変更点**:
+- 出力指示を**OUTPUT FORMAT**セクションに統一
+- 最後のリマインダー削除(冗長性排除)
 
 ### セクションの役割
 
@@ -142,19 +145,19 @@ Claudeの動作原理:
 
 ## 配置の原則
 
-### 優先度順
+### 優先度順 (2025-11-09更新)
 
 ```markdown
-1. [変数と出力形式] ← 最優先
+1. [変数と出力形式] ← 最優先 (**OUTPUT FORMAT**セクション)
 2. [JSON schema]     ← 構造定義
 3. [ドメイン知識]     ← 内容の質
-4. [最後のリマインダー] ← 念押し
 ```
 
 なぜこの順序か:
 - Claudeは上から読むが、全体をコンテキストとして保持
 - 出力形式は最初に明示（誤解を防ぐ）
 - 知識は後で参照される（生成時にアクセス）
+- **最後のリマインダーは不要**(冗長、Learning 04参照)
 
 ## 知識の粒度
 

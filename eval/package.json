@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "eval": "pnpm eval:deterministic && pnpm eval:qualitative",
+    "eval": "pnpm eval:deterministic && pnpm eval:qualitative && pnpm eval:integration",
     "eval:deterministic": "promptfoo eval --config test-deterministic/promptfooconfig.yaml",
     "eval:deterministic:watch": "promptfoo eval --config test-deterministic/promptfooconfig.yaml --watch",
     "eval:qualitative": "promptfoo eval --config test-qualitative/promptfooconfig.yaml",
     "eval:qualitative:watch": "promptfoo eval --config test-qualitative/promptfooconfig.yaml --watch",
+    "eval:integration": "promptfoo eval --config test-integration/promptfooconfig.yaml",
+    "eval:integration:watch": "promptfoo eval --config test-integration/promptfooconfig.yaml --watch",
     "eval:ui": "promptfoo view",
-    "eval:watch": "echo 'Use eval:deterministic:watch or eval:qualitative:watch for specific test types'"
+    "eval:watch": "echo 'Use eval:deterministic:watch, eval:qualitative:watch, or eval:integration:watch for specific test types'"
   },
   "keywords": [],
   "author": "",

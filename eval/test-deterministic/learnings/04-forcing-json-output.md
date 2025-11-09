@@ -43,7 +43,17 @@ Example output:
 
 ## 成功パターン
 
-### 基本形
+### 基本形 (推奨)
+
+```markdown
+User Story: {{story_input}}
+
+Analyze the above user story using BDD Example Mapping principles.
+
+**OUTPUT FORMAT**: Return ONLY valid JSON (no markdown code fences, no commentary). All text values in Japanese.
+```
+
+### 旧形式 (機能するが冗長)
 
 ```markdown
 User Story: {{story_input}}
@@ -109,28 +119,34 @@ Output JSON with story, rules, questions fields.
 - コメントで期待値を説明
 - ネスト構造を正確に示す
 
-## 最後のリマインダー
+## 最後のリマインダー (非推奨 - 冗長)
 
-スキーマ提示の後に、もう一度明示:
+**2025-11-09更新**: 最後のリマインダーは不要。OUTPUT FORMATセクションに統一することを推奨。
+
+~~スキーマ提示の後に、もう一度明示:~~
 
 ```markdown
 Return pure JSON only - all text values in Japanese.
 ```
 
-なぜ繰り返すか:
-- スキーマ提示で「例示」と誤解される可能性
-- 最後のリマインダーで「実際の要求」を強調
+~~なぜ繰り返すか:~~
+- ~~スキーマ提示で「例示」と誤解される可能性~~
+- ~~最後のリマインダーで「実際の要求」を強調~~
+
+**新ベストプラクティス**: 出力形式指示は1箇所に統一(冒頭の**OUTPUT FORMAT**セクション)
 
 ## テンプレート
 
-以下のテンプレートをコピーして使用可能:
+以下のテンプレートをコピーして使用可能 (2025-11-09更新):
 
 ```markdown
 # [Skill Name]
 
 [Input Variables]: {{variable_name}}
 
-Analyze the above [context] and output ONLY valid JSON (no markdown code fences, no commentary):
+Analyze the above [context].
+
+**OUTPUT FORMAT**: Return ONLY valid JSON (no markdown code fences, no commentary). All text values in [language].
 
 ```json
 {
@@ -139,9 +155,11 @@ Analyze the above [context] and output ONLY valid JSON (no markdown code fences,
 ```
 
 [Domain knowledge and principles]
-
-Return pure JSON only - [additional constraints].
 ```
+
+**変更点**:
+- 出力指示を**OUTPUT FORMAT**セクションに統一
+- 最後のリマインダー削除(冗長性排除)
 
 ## markdown code blockが返された場合
 

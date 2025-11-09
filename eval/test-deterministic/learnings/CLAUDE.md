@@ -1,6 +1,7 @@
 # promptfoo + Claude Agent SDK: Learnings
 
 promptfoo + Claude Agent SDKのテスト開発で得た知見集。**問題に遭遇したら、まずここを参照**。
+定量的テストに関する知見に限定して知識をストック化する。
 
 ## Quick Reference
 
@@ -86,12 +87,3 @@ vim 11-new-topic.md
 
 **メンテナンス原則**: 実例ベース、Before/After対比、簡潔に
 
-## Context
-
-- **作成**: 2025-11-08
-- **タスク**: SKILL.mdのpromptfooテスト化
-- **結果**: 100% pass (3/3 test cases)
-
----
-
-promptfoo: https://www.promptfoo.dev/docs/

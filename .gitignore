@@ -39,6 +39,8 @@ out/
 
 # promptfoo cache and outputs
 .promptfoo/
+*-results.json
+test-*.json
 
 # Test outputs
 coverage/

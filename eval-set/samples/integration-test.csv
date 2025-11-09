@@ -1,0 +1,10 @@
+source_file,source_type,category,complexity,story_input,context,expected_rules_min,expected_questions_min,domain_tags
+reduce-effort.csv,job,データ統合,medium,予算データをExcelから手入力しているが、CSVインポートで自動化したい。,ユーザーは反復的な手入力作業を削減したい（Jobs: 時間節約・エラー削減）,3,5,"automation,csv-import,manual-work-reduction,efficiency"
+increase-accuracy.csv,job,データ統合,medium,実績データのインポート時、勘定科目の入力ミスが多い。マッピングルールで自動変換したい。,ユーザーは手入力エラーを削減し、データ品質を向上したい,4,5,"data-quality,validation,mapping,error-reduction"
+improve-visibility.csv,job,レポート,medium,部門別の予算消化率をダッシュボードで可視化したい。リアルタイムで。,ユーザーは進捗状況を常時把握し、早期の意思決定を行いたい,3,5,"dashboard,real-time,monitoring,visualization"
+strengthen-control.csv,job,権限承認,complex,承認済み予算は部門長も編集不可にしたい。CFOのみ編集可能。,ユーザーは承認後の不正変更を防止し、統制を強化したい,4,6,"access-control,state-based-permission,governance,fraud-prevention"
+enhance-collaboration.csv,job,承認フロー,ambiguous,部下に予算入力を代行させたい。でも最終確認は自分でしたい。,ユーザーは業務を委譲しつつも品質統制を維持したい,4,6,"delegation,proxy-input,approval-workflow,collaboration"
+department-head.csv,persona,予算編成,medium,来期の人件費予算を今期比5%削減で入力したい。一括で設定できないか。,部門長は予算全体の調整が主業務。細かい手入力は避けたい。,3,5,"budget-planning,bulk-operation,personnel-cost,efficiency"
+finance-manager.csv,persona,データ統合,complex,全部門の予算を統合して、勘定科目別サマリを自動生成したい。月次・四半期・年次の3パターン。,経理担当は連結・集計が主業務。手作業集計は非効率。,4,6,"consolidation,aggregation,account-category,multi-period"
+cfo.csv,persona,シミュレーション,complex,複数の予算シナリオを比較したい。楽観・標準・悲観の3パターン。各シナリオで売上予測が違う。,CFOは戦略的意思決定のためシナリオ分析を実施。,5,7,"scenario-planning,what-if-analysis,sensitivity,strategy"
+it-admin.csv,persona,データ統合,complex,会計システム（SAP）とリアルタイム連携したい。API経由で。実績データの自動取り込み。,IT管理者はシステム統合とデータ連携基盤の構築が役割。,5,7,"api-integration,sap,real-time,enterprise-architecture"

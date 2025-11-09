@@ -1,0 +1,22 @@
+{
+  "name": "tunning",
+  "version": "1.0.0",
+  "description": "DSPy prompt tuning with axllm",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js"
+  },
+  "keywords": [
+    "dspy",
+    "axllm",
+    "prompt-tuning"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ax-llm/ax": "^14.0.39",
+    "dotenv": "^17.2.3"
+  }
+}

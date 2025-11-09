@@ -1,0 +1,45 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@ax-llm/ax':
+        specifier: ^14.0.39
+        version: 14.0.39
+      dotenv:
+        specifier: ^17.2.3
+        version: 17.2.3
+
+packages:
+
+  '@ax-llm/ax@14.0.39':
+    resolution: {integrity: sha512-9pM32i5DLeJC9gc9oYX0m0FhRoQslXLmIKW5lSGAUQAInfl+cHwFpdYyqWoc6g6ofB3lEky1LP3M1fZlkzpLDA==}
+
+  '@opentelemetry/api@1.9.0':
+    resolution: {integrity: sha512-3giAOQvZiH5F9bMlMiv8+GSPMeqg0dbaeo58/0SlA9sxSqZhnUtxzX9/2FzyhS9sWQf5S0GJE0AKBrFqjpeYcg==}
+    engines: {node: '>=8.0.0'}
+
+  dayjs@1.11.19:
+    resolution: {integrity: sha512-t5EcLVS6QPBNqM2z8fakk/NKel+Xzshgt8FFKAn+qwlD1pzZWxh0nVCrvFK7ZDb6XucZeF9z8C7CBWTRIVApAw==}
+
+  dotenv@17.2.3:
+    resolution: {integrity: sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w==}
+    engines: {node: '>=12'}
+
+snapshots:
+
+  '@ax-llm/ax@14.0.39':
+    dependencies:
+      '@opentelemetry/api': 1.9.0
+      dayjs: 1.11.19
+
+  '@opentelemetry/api@1.9.0': {}
+
+  dayjs@1.11.19: {}
+
+  dotenv@17.2.3: {}

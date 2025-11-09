@@ -8,8 +8,30 @@ FP&A SaaSのExample Mapping評価用ゴールデンデータセット。promptfo
 eval-set/
 ├── base/              # 基本シナリオ（ペルソナ・Job混在）
 ├── persona/           # ペルソナ特化シナリオ
-└── job/               # Jobs-to-be-Done特化シナリオ
+├── job/               # Jobs-to-be-Done特化シナリオ
+└── samples/           # 厳選サンプル（統合テスト用）
 ```
+
+---
+
+## 0. samples/ - 厳選サンプル（統合テスト用）
+
+**目的**: promptfoo統合テストでケース数を制御しながらゴールデンデータセットをimport
+
+### ファイル構成
+
+| ファイル | ケース数 | 構成 | 用途 |
+|---------|----------|------|------|
+| `integration-test.csv` | 9 | Job 5ケース + Persona 4ケース | BDD Example Mapping統合テスト |
+
+### 特徴
+
+- **元データからの抽出**: base/persona/jobから代表的なケースを厳選
+- **トレーサビリティ**: `source_file`カラムで元ファイルを記録
+- **実行時間の最適化**: 9ケース × 9アサーション = 81テスト結果（約5-7分）
+- **promptfoo直接import**: `tests: file://path/to/integration-test.csv`
+
+詳細は [samples/README.md](samples/README.md) を参照。
 
 ---
 
