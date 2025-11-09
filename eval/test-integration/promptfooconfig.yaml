@@ -26,7 +26,7 @@ defaultTest:
     - type: javascript
       value: |
         const parsed = JSON.parse(output);
-        const requiredKeys = ['story', 'rules', 'questions', 'next_actions', 'metadata'];
+        const requiredKeys = ['story', 'rules', 'questions', 'next_actions'];
         const hasAllKeys = requiredKeys.every(key => key in parsed);
         if (!hasAllKeys) {
           throw new Error(`Missing required keys. Expected: ${requiredKeys.join(', ')}`);
@@ -96,29 +96,7 @@ defaultTest:
         }
         return true;
 
-    # Assertion 7: Metadata accuracy
-    - type: javascript
-      value: |
-        const parsed = JSON.parse(output);
-        const metadata = parsed.metadata;
-        const actualRuleCount = parsed.rules.length;
-        const actualExampleCount = parsed.rules.reduce((sum, rule) => sum + rule.examples.length, 0);
-        const actualQuestionCount = (parsed.questions.blocker?.length || 0) +
-                                  (parsed.questions.clarification?.length || 0) +
-                                  (parsed.questions.future?.length || 0);
-
-        if (metadata.rule_count !== actualRuleCount) {
-          throw new Error(`Metadata rule_count (${metadata.rule_count}) doesn't match actual (${actualRuleCount})`);
-        }
-        if (metadata.example_count !== actualExampleCount) {
-          throw new Error(`Metadata example_count (${metadata.example_count}) doesn't match actual (${actualExampleCount})`);
-        }
-        if (metadata.question_count !== actualQuestionCount) {
-          throw new Error(`Metadata question_count (${metadata.question_count}) doesn't match actual (${actualQuestionCount})`);
-        }
-        return true;
-
-    # Assertion 8: Japanese language output
+    # Assertion 7: Japanese language output
     - type: javascript
       value: |
         const parsed = JSON.parse(output);
@@ -140,7 +118,7 @@ defaultTest:
         }
         return true;
 
-    # Assertion 9: FP&A SaaS domain considerations (qualitative)
+    # Assertion 8: FP&A SaaS domain considerations (qualitative)
     - type: llm-rubric
       value: |
         Evaluate if the generated questions demonstrate appropriate consideration of FP&A SaaS brownfield development constraints:

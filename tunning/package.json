@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "DSPy prompt tuning with axllm",
   "type": "module",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "dev": "node --watch src/index.js",
-    "start": "node src/index.js"
+    "optimize": "tsx src/optimize-gepa.ts",
+    "optimize:watch": "tsx --watch src/optimize-gepa.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "dspy",
@@ -18,5 +20,10 @@
   "dependencies": {
     "@ax-llm/ax": "^14.0.39",
     "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
   }
 }

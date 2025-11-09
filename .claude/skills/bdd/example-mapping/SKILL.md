@@ -1,12 +1,13 @@
 # Example Mapping Skill
 
+CRITICAL OUTPUT REQUIREMENT: You MUST return ONLY raw JSON. DO NOT use markdown code fences (no ```json). DO NOT add any commentary before or after the JSON. Start your response with { and end with }.
+
 User Story: {{story_input}}
 
 Analyze the above user story using BDD Example Mapping principles.
 
-**OUTPUT FORMAT**: Return ONLY valid JSON (no markdown code fences, no commentary). All text values in Japanese.
+REQUIRED JSON SCHEMA (all text values in Japanese):
 
-```json
 {
   "story": {
     "as_a": string,        // ペルソナ（日本語）
@@ -31,14 +32,8 @@ Analyze the above user story using BDD Example Mapping principles.
     "clarification": [],   // 明確化で品質向上（日本語）
     "future": []          // 将来検討（日本語）
   },
-  "next_actions": [],     // アクション項目（日本語）
-  "metadata": {
-    "rule_count": number,
-    "example_count": number,
-    "question_count": number
-  }
+  "next_actions": []      // アクション項目（日本語）
 }
-```
 
 ## Example Mapping Principles
 
