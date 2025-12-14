@@ -96,7 +96,7 @@ dev-prompt-eval/
 
 **Output**: Pareto frontier of optimized prompts with trade-off analysis.
 
-**See**: [`tunning/README.md`](tunning/README.md) for detailed documentation.
+**See**: [`tunning/README.md`](tuning/README.md) for detailed documentation.
 
 ## promptfoo Evaluation
 
